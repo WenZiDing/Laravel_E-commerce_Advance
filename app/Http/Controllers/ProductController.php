@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -13,9 +14,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-	    $data = $this->getData();
+			$data = DB::table('products')->get();
 			return response($data, 200);
+        //
+//	    $data = $this->getData();
+//	    DB::table()
+//			return response($data, 200);
     }
 
     /**
@@ -78,7 +82,7 @@ class ProductController extends Controller
 			$data = $this->getData();
 			$arrRequestData = collect($request->all());
 			$data = $data->where('id',$id)->first()->merge($arrRequestData);
-			
+
 			return response($data, 200);
     }
 

@@ -15,6 +15,7 @@ class AddQuantityToCartItems extends Migration
     {
         Schema::table('cart_items', function (Blueprint $table) {
             //
+	        $table->integer('quantity')->after('cart_id');
         });
     }
 
@@ -27,6 +28,7 @@ class AddQuantityToCartItems extends Migration
     {
         Schema::table('cart_items', function (Blueprint $table) {
             //
+	        $table->dropColumn('quantity');
         });
     }
 }

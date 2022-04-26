@@ -14,6 +14,8 @@ class ProductController extends Controller
     public function index()
     {
         //
+	    $data = $this->getData();
+			dd($data);
     }
 
     /**
@@ -80,5 +82,20 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function getData(){
+        return collect([
+            collect([
+                'id'=>0,
+                'title'=>'測試1',
+                'content'=>'棒',
+                'price'=>50
+            ]),collect([
+                'id'=>1,
+                'title'=>'測試2',
+                'content'=>'讚',
+                'price'=>100
+            ])
+        ]);
     }
 }

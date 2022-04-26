@@ -15,7 +15,7 @@ class ProductController extends Controller
     {
         //
 	    $data = $this->getData();
-			dd($data);
+			return response($data, 200);
     }
 
     /**
@@ -37,6 +37,10 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+	    $arrData = $this->getData();
+			$arrRequestData = collect($request->all());
+			$arrData->push($arrRequestData);
+			return response($arrData, 200);
     }
 
     /**
@@ -71,6 +75,11 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+			$data = $this->getData();
+			$arrRequestData = collect($request->all());
+			$data = $data->where('id',$id)->first()->merge($arrRequestData);
+			
+			return response($data, 200);
     }
 
     /**
@@ -82,6 +91,12 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+	    $data = $this->getData();
+			$data = $data->filter(function ($product) use ($id){
+				return $product['id'] != $id;
+			});
+			$data = $data->values();
+			return response($data, 200);
     }
     public function getData(){
         return collect([

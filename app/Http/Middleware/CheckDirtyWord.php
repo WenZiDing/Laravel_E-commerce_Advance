@@ -16,6 +16,17 @@ class CheckDirtyWord
      */
     public function handle(Request $request, Closure $next)
     {
+			$arrDirtyWords = ['apple','orange'];
+			$parameters = $request->all();
+			foreach ($parameters as $key => $value){
+				if ($key == 'title'){
+					foreach ($arrDirtyWords as $dirtyWords){
+						if (strpos($value , $dirtyWords) !== false){
+							return response('dirty!', 400);
+						}
+					}
+				}
+			}
         return $next($request);
     }
 }

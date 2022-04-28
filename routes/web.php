@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('products','ProductController');
+
+Route::group(['middleware' => 'check.dirty'], function(){
+	Route::resource('products','ProductController');
+});
+//Route::resource('products','ProductController');
 Route::resource('carts','CartController');
 Route::resource('cart-items','CartItemsController');

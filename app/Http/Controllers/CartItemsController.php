@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateValidate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -90,10 +91,10 @@ class CartItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateValidate $request, $id)
     {
         //
-	    $form = $request->all();
+	    $form = $request->validated();
 	    DB::table('cart_items')->where('id', $id)
 		                              ->update(['quantity' => $form['quantity'],
 			                                      'updated_at' => now()]);

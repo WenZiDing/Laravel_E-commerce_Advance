@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateValidate extends FormRequest
+class UpdateValidate extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateValidate extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,14 @@ class UpdateValidate extends FormRequest
     {
         return [
             //
+	        'quantity'=>'required|integer|between:1,10'
         ];
     }
+		public function messages()
+		{
+			return [
+				//
+				'quantity.between'=>'數量必須小於10'
+			];
+		}
 }

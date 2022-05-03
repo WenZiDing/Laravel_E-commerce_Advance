@@ -6,6 +6,8 @@ use App\Http\Requests\UpdateValidate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Cart;
+use App\Models\CartItem;
 
 class CartItemsController extends Controller
 {
@@ -52,14 +54,14 @@ class CartItemsController extends Controller
 			}
         //
 	    $form = $validator->validate();
-			DB::table('cart_items')->insert([
-				'cart_id' => $form['cart_id'],
-				'product_id' => $form['product_id'],
-				'quantity' => $form['quantity'],
-				'created_at' => now(),
-				'updated_at' => now()
-			]);
-	    return response()->json(true);
+			$cart = Cart::find($form['cart_id']);
+			$result = $cart->cartItems()->create(['product_id' => $form['product_id'],
+				'quantity' => $form['quantity'],]);
+//			DB::table('cart_items')->insert([
+//				'product_id' => $form['product_id'],
+//				'quantity' => $form['quantity'],
+//			]);
+	    return response()->json($result);
     }
 
     /**
@@ -95,6 +97,9 @@ class CartItemsController extends Controller
     {
         //
 	    $form = $request->validated();
+			$item = CartItem::find($id);
+			$item->fill(['quantity'=>$form['quantity']]);
+			$item->save();
 	    DB::table('cart_items')->where('id', $id)
 		                              ->update(['quantity' => $form['quantity'],
 			                                      'updated_at' => now()]);
@@ -111,8 +116,9 @@ class CartItemsController extends Controller
     {
         //
 //	    $form = $request->all();
-	    DB::table('cart_items')->where('id', $id)
-		    ->delete();
+	    $item = CartItem::find($id)->delete();
+//	    DB::table('cart_items')->where('id', $id)
+//		    ->delete();
 	    return response()->json(true);
     }
 }

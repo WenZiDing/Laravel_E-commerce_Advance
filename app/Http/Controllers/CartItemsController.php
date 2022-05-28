@@ -116,7 +116,7 @@ class CartItemsController extends Controller
     {
         //
 //	    $form = $request->all();
-	    $item = CartItem::find($id)->delete();
+	    CartItem::find($id)->delete();
 //	    DB::table('cart_items')->where('id', $id)
 //		    ->delete();
 	    return response()->json(true);

@@ -15,6 +15,7 @@ class AddSoftDeleteToCartItems extends Migration
     {
         Schema::table('cart_items', function (Blueprint $table) {
             //
+          $table->softDeletes();
         });
     }
 
@@ -27,6 +28,7 @@ class AddSoftDeleteToCartItems extends Migration
     {
         Schema::table('cart_items', function (Blueprint $table) {
             //
+          $table->dropSoftDeletes();
         });
     }
 }

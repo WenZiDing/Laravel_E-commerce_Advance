@@ -12,6 +12,7 @@
         "laravel/framework": "^8.40",
         "laravel/passport": "^10.4",
         "laravel/tinker": "^2.5",
+        "lcobucci/jwt": "^3.3.3",
         "onecentlin/laravel-adminer": "^5.3"
     },
     "require-dev": {

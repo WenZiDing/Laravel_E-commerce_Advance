@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateUser extends FormRequest
+class CreateUser extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class CreateUser extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,9 @@ class CreateUser extends FormRequest
     {
         return [
             //
+          'name'=>'required|string',
+          'email'=>'required|string|email|unique:users',
+          'password'=>'required|string|confirmed'
         ];
     }
 }

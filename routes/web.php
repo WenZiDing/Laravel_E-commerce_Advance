@@ -21,11 +21,12 @@ Route::group(['middleware' => 'check.dirty'], function(){
 	Route::resource('products','ProductController');
 });
 //Route::resource('products','ProductController');
-Route::resource('carts','CartController');
-Route::resource('cart-items','CartItemsController');
+
 Route::post('signup','AuthController@signup');
 Route::post('login','AuthController@login');
 Route::group(['middleware'=>'auth:api'], function(){
+  Route::resource('carts','CartController');
+  Route::resource('cart-items','CartItemsController');
   Route::get('user','AuthController@user');
   Route::get('logout','AuthController@logout');
 });

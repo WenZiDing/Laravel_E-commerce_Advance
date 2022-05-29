@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
@@ -24,7 +25,8 @@ class CartController extends Controller
 //			$cartItems = DB::table('cart_items')->where('cart_id', $cart->id)->get();
 //			$cart = collect($cart);
 //			$cart['item'] = $cartItems;
-	    $cart = Cart::with(['CartItems'])->firstOrCreate();
+      $user = Auth::user();
+	    $cart = Cart::with(['CartItems'])->where('user_id',$user->id)->firstOrCreate(['user_id'=>$user->id]);
 			return response($cart);
     }
 

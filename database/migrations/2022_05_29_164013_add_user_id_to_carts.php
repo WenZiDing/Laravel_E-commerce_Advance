@@ -15,6 +15,7 @@ class AddUserIdToCarts extends Migration
     {
         Schema::table('carts', function (Blueprint $table) {
             //
+          $table->foreignId('user_id')->constrained('users')->after('id');
         });
     }
 
@@ -27,6 +28,7 @@ class AddUserIdToCarts extends Migration
     {
         Schema::table('carts', function (Blueprint $table) {
             //
+          $table->dropConstrainedForeignId('user_id');
         });
     }
 }

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use http\Env\Response;
+//use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateUser;
 use Illuminate\Support\Facades\Auth;
@@ -35,4 +36,11 @@ class AuthController extends Controller
     return response(['token'=>$tokenRusult->accessToken]);
   }
     //
+  public function user(Request $request){
+    return response($request->user());
+  }
+  public function logout(Request $request){
+    $request->user()->token()->revoke();
+    return response(['message'=>'登出成功']);
+  }
 }

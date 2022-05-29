@@ -30,6 +30,7 @@ class Cart extends Model
           'price'=>$cartItem->product->price
         ]);
         $this->update(['checkouted'=>true]);
+        $order->orderItems;
         return $order;
       }
   }

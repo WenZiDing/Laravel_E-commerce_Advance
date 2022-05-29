@@ -13,10 +13,19 @@ class CreateOrdersAndOrderItems extends Migration
      */
     public function up()
     {
-        Schema::create('orders_and_order_items', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('cart_id')->constrained('carts');
+            $table->boolean('is_shipped')->default(0);
             $table->timestamps();
         });
+      Schema::create('order_items', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('product_id')->constrained('products');
+        $table->foreignId('orders_id')->constrained('orders');
+        $table->timestamps();
+      });
     }
 
     /**
@@ -26,6 +35,7 @@ class CreateOrdersAndOrderItems extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders_and_order_items');
+        Schema::dropIfExists('orders');
+        Schema::dropIfExists('order_items');
     }
 }

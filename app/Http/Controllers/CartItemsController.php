@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Product;
 
 class CartItemsController extends Controller
 {
@@ -54,8 +55,14 @@ class CartItemsController extends Controller
 			}
         //
 	    $form = $validator->validate();
+
+      $product = Product::find($form['product_id']);
+      if(!$product->checkQuantity($form['quantity'])){
+        return response($product->title.'數量不足',400);
+      }
+
 			$cart = Cart::find($form['cart_id']);
-			$result = $cart->cartItems()->create(['product_id' => $form['product_id'],
+			$result = $cart->cartItems()->create(['product_id' => $product->id,
 				'quantity' => $form['quantity'],]);
 //			DB::table('cart_items')->insert([
 //				'product_id' => $form['product_id'],

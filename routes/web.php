@@ -29,4 +29,5 @@ Route::group(['middleware'=>'auth:api'], function(){
   Route::resource('cart-items','CartItemsController');
   Route::get('user','AuthController@user');
   Route::get('logout','AuthController@logout');
+  Route::post('carts/checkout','CartController@checkout');
 });

@@ -15,6 +15,7 @@ class AddCheckedToCarts extends Migration
     {
         Schema::table('carts', function (Blueprint $table) {
             //
+          $table->boolean('checkouted')->default(0)->after('user_id');
         });
     }
 
@@ -27,6 +28,7 @@ class AddCheckedToCarts extends Migration
     {
         Schema::table('carts', function (Blueprint $table) {
             //
+          $table->dropColumn('checkouted');
         });
     }
 }

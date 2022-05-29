@@ -23,7 +23,7 @@ class CreateOrdersAndOrderItems extends Migration
       Schema::create('order_items', function (Blueprint $table) {
         $table->id();
         $table->foreignId('product_id')->constrained('products');
-        $table->foreignId('orders_id')->constrained('orders');
+        $table->foreignId('order_id')->constrained('orders');
         $table->timestamps();
       });
     }

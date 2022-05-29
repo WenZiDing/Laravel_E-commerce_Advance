@@ -30,6 +30,18 @@ class CartController extends Controller
 			return response($cart);
     }
 
+    public function checkout(){
+      $user = Auth::user();
+      $cart = $user->carts()->where('checkouted', false)->with('cartItems')->first();
+      if($cart){
+        $result = $cart->checkout();
+        return response($result);
+
+      }else{
+        return response('沒有購物車',400);
+      }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

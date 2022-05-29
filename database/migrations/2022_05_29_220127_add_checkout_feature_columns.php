@@ -13,6 +13,12 @@ class AddCheckoutFeatureColumns extends Migration
      */
     public function up()
     {
+      Schema::table('order_items', function (Blueprint $table) {
+        $table->integer('price')->after('order_id');
+      });
+      Schema::table('users', function (Blueprint $table) {
+        $table->integer('level')->default(1)->after('id');
+      });
         //
     }
 
@@ -24,5 +30,11 @@ class AddCheckoutFeatureColumns extends Migration
     public function down()
     {
         //
+      Schema::table('order_items', function (Blueprint $table) {
+        $table->dropColumn('price');
+      });
+      Schema::table('users', function (Blueprint $table) {
+        $table->dropColumn('level');
+      });
     }
 }

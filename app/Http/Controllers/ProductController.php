@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -40,11 +41,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+      $input = $request->all();
+      $Product = Product::create([
+        'title'=>$request['title'],
+        'content'=>$request['content'],
+        'price'=>$request['price'],
+        'quantity'=>$request['quantity']
+
+        ]);
         //
-	    $arrData = $this->getData();
-			$arrRequestData = collect($request->all());
-			$arrData->push($arrRequestData);
-			return response($arrData, 200);
+//	    $arrData = $this->getData();
+//			$arrRequestData = collect($request->all());
+//			$arrData->push($arrRequestData);
+			return response($Product, 200);
     }
 
     /**

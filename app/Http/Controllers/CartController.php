@@ -26,7 +26,9 @@ class CartController extends Controller
 //			$cart = collect($cart);
 //			$cart['item'] = $cartItems;
       $user = Auth::user();
-	    $cart = Cart::with(['CartItems'])->where('user_id',$user->id)->where('checkouted',false)->firstOrCreate(['user_id'=>$user->id]);
+	    $cart = Cart::with(['CartItems'])->where('user_id',$user->id)
+                                        ->where('checkouted',false)
+                                        ->firstOrCreate(['user_id'=>$user->id]);
 			return response($cart);
     }
 

@@ -126,4 +126,15 @@ class ProductController extends Controller
             ])
         ]);
     }
+
+    public function CheckProduct(Request $request){
+        $id = $request->all();
+        $product = Product::find($id['product_id']);
+        if ($product->quantity >0){
+         return true;
+        }else{
+            return false;
+        }
+
+    }
 }

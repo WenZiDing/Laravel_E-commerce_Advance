@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class Cart extends Model
 {
@@ -22,31 +24,39 @@ class Cart extends Model
   }
   public function checkout(){
 
-    foreach ($this->cartItems as $cartItem){
-      $product = $cartItem->product;
-      if (!$product->checkQuantity($cartItem->quantity)){
-        return $product->title.'數量不足';
-      }
-    }
-
-      $order = $this->order()->create([
-        'user_id'=>$this->user_id
-      ]);
-      if ($this->user->level == 2){
-        $this->rate = 0.8;
-      }
+    DB::beginTransaction();
+      try {
+          foreach ($this->cartItems as $cartItem){
+              $product = $cartItem->product;
+              if (!$product->checkQuantity($cartItem->quantity)){
+                  return $product->title.'數量不足';
+              }
+          }
+          $order = $this->order()->create([
+              'user_id'=>$this->user_id
+          ]);
+          if ($this->user->level == 2){
+              $this->rate = 0.8;
+          }
 //    dd($this->cartItems);
-      foreach ($this->cartItems as $cartItem){
+          foreach ($this->cartItems as $cartItem){
 
-        $order->orderItems()->create([
-          'product_id'=>$cartItem->product_id,
-          'price'=>$cartItem->product->price * $this->rate
-        ]);
-        $cartItem->product->update(['quantity' => $cartItem->product->quantity - $cartItem->quantity]);
+              $order->orderItems()->create([
+                  'product_id'=>$cartItem->product_id,
+                  'price'=>$cartItem->product->price * $this->rate
+              ]);
+              $cartItem->product->update(['quantity' => $cartItem->product->quantity - $cartItem->quantity]);
 
+          }
+          $this->update(['checkouted'=>true]);
+          $order->orderItems;
+          return $order;
+          DB::commit();
+      }catch (\Exception $exception){
+        DB::rollBack();
+        return 'somethine Error';
       }
-    $this->update(['checkouted'=>true]);
-    $order->orderItems;
-    return $order;
+return $result;
+
   }
 }

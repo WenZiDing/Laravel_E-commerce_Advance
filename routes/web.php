@@ -20,6 +20,8 @@ Route::get('/', 'WebController@index');
 Route::get('/contact-us', 'WebController@contactUs');
 Route::post('/products/check-product', 'ProductController@CheckProduct');
 
+Route::resource('/admin/orders', 'Admin\OrderController');
+
 Route::group(['middleware' => 'check.dirty'], function(){
 	Route::resource('products','ProductController');
 });

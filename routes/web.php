@@ -18,9 +18,13 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::get('/', 'WebController@index');
 Route::get('/contact-us', 'WebController@contactUs');
+Route::post('/read-notification', 'WebController@readNotification');
 Route::post('/products/check-product', 'ProductController@CheckProduct');
 
 Route::resource('/admin/orders', 'Admin\OrderController');
+Route::post('/admin/orders/{id}/delivery', 'Admin\OrderController@delivery');
+Route::post('/admin/Tools/update-product-price', 'Admin\ToolController@updateProductPrice');
+Route::post('/admin/Tools/create-product-redis', 'Admin\ToolController@createProductRedis');
 
 Route::group(['middleware' => 'check.dirty'], function(){
 	Route::resource('products','ProductController');

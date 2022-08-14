@@ -24,7 +24,6 @@
     @endforeach
   </tbody>
 </table>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     $(document).on('click','.check_product',function(){
         // alert($(this).data('id'));

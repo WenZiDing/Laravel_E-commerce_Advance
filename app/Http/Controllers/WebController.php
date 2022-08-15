@@ -10,7 +10,7 @@ use Illuminate\Notifications\DatabaseNotification;
 class WebController extends Controller
 {
     //
-    public $notifications = [];
+    public $notification = [];
     public function __construct()
     {
         $user = User::find(1);
@@ -23,6 +23,7 @@ class WebController extends Controller
     return view('web.index',['products'=>$product, 'notifications'=>$this->notification ]);
   }
   public function contactUs(){
+
     return view('web.contact-us',['notifications'=>$this->notification ]);
 
   }

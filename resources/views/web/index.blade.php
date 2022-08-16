@@ -19,7 +19,10 @@
       <td>{{$product->title}}</td>
       <td>{{$product->content}}</td>
       <td>{{$product->price}}</td>
-      <td><input class = "check_product" type = "button" value="確認商品數量" data-id = "{{$product->id}}"></td>
+      <td>
+          <input class = "check_product" type = "button" value="確認商品數量" data-id = "{{$product->id}}">
+          <input class = "check_shared_url" type = "button" value="分享商品" data-id = "{{$product->id}}">
+      </td>
     </tr>
     @endforeach
   </tbody>
@@ -39,6 +42,22 @@
             }else{
                 alert('商品數量不構');
             }
+        })
+    });
+
+    $(document).on('click','.check_shared_url',function(){
+        var product_id = $(this).data('id');
+        // alert($(this).data('id'));
+        $.ajax({
+            method:'GET',
+            url:`/products/${product_id}/share-url`,
+        }).done(function (response){
+            alert(response.url)
+            // if (response){
+            //     alert('商品數量充足');
+            // }else{
+            //     alert('商品數量不構');
+            // }
         })
     });
 </script>

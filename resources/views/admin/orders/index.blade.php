@@ -7,8 +7,8 @@
 <h2>後台-訂單列表</h2>
 <span>訂單總數：{{$orderCount}}</span>
 <div>
-    <a href="/admin/orders/excel/export">匯出訂單(Excel)</a> <br>
-    <a href="/admin/orders/excel/export-by-shipped">匯出分類訂單(Excel)</a>
+    <a href="/admin/Orders/excel/export">匯出訂單(Excel)</a> <br>
+    <a href="/admin/Orders/excel/export-by-shipped">匯出分類訂單(Excel)</a>
 </div>
 <table>
     <thead>
@@ -38,7 +38,7 @@
 </table>
 <div>
     @for($i = 1; $i <= $orderPages; $i++)
-        <a href="/admin/orders?page={{$i}}">第{{$i}}頁</a>
+        <a href="/admin/Orders?page={{$i}}">第{{$i}}頁</a>
     @endfor
 </div>
 @endsection

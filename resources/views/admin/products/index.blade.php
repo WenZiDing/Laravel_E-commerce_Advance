@@ -39,7 +39,13 @@
             <td>{{$product->content}}</td>
             <td>{{$product->price}}</td>
             <td>{{$product->quantity}}</td>
-            <td><a href="{{$product->image_url}}">圖片連結</a></td>
+            <td>
+                @if(isset($product->image_url))
+                    <a href="{{$product->image_url}}">圖片連結</a>
+                @else
+                    無圖片
+                @endif
+            </td>
             <td>
                 <input type="button" class="upload_image" data-id = {{$product->id}} value="上傳圖片">
             </td>

@@ -25,7 +25,7 @@ Route::post('/products/check-product', 'ProductController@CheckProduct');
 // admin
 Route::group(['prefix' => '/admin'], function () {
     // admin - orders
-    Route::group(['prefix' => '/orders'], function () {
+    Route::group(['prefix' => '/Orders'], function () {
         Route::resource('', 'Admin\OrderController');
         Route::get('/excel/export', 'Admin\OrderController@export');
         Route::get('/excel/export-by-shipped', 'Admin\OrderController@ByShipped');

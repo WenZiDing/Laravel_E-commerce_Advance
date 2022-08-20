@@ -22,14 +22,29 @@ Route::post('/read-notification', 'WebController@readNotification');
 Route::get('/products/{id}/share-url', 'ProductController@sharedUrl');
 Route::post('/products/check-product', 'ProductController@CheckProduct');
 
-Route::resource('/admin/orders', 'Admin\OrderController');
-Route::get('/admin/orders/excel/export', 'Admin\OrderController@export');
-Route::post('/admin/orders/{id}/delivery', 'Admin\OrderController@delivery');
-Route::post('/admin/Tools/update-product-price', 'Admin\ToolController@updateProductPrice');
-Route::post('/admin/Tools/create-product-redis', 'Admin\ToolController@createProductRedis');
-Route::resource('/admin/Product', 'Admin\ProductController');
-Route::post('/admin/Product/upload-image', 'Admin\ProductController@uploadImage');
-Route::post('/admin/Product/excel/import', 'Admin\ProductController@import');
+// admin
+Route::group(['prefix' => '/admin'], function () {
+    // admin - orders
+    Route::group(['prefix' => '/orders'], function () {
+        Route::resource('', 'Admin\OrderController');
+        Route::get('/excel/export', 'Admin\OrderController@export');
+        Route::get('/excel/export-by-shipped', 'Admin\OrderController@ByShipped');
+        Route::post('/{id}/delivery', 'Admin\OrderController@delivery');
+    });
+    // admin - Tools
+    Route::group(['prefix' => '/Tools'], function () {
+        Route::post('/update-product-price', 'Admin\ToolController@updateProductPrice');
+        Route::post('/create-product-redis', 'Admin\ToolController@createProductRedis');
+    });
+
+    // admin - Product
+    Route::group(['prefix' => '/Product'], function () {
+        Route::resource('', 'Admin\ProductController');
+        Route::post('/upload-image', 'Admin\ProductController@uploadImage');
+        Route::post('/excel/import', 'Admin\ProductController@import');
+    });
+
+});
 
 
 Route::group(['middleware' => 'check.dirty'], function(){

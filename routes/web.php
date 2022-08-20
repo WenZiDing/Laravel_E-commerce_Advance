@@ -26,6 +26,8 @@ Route::resource('/admin/orders', 'Admin\OrderController');
 Route::post('/admin/orders/{id}/delivery', 'Admin\OrderController@delivery');
 Route::post('/admin/Tools/update-product-price', 'Admin\ToolController@updateProductPrice');
 Route::post('/admin/Tools/create-product-redis', 'Admin\ToolController@createProductRedis');
+Route::resource('/admin/Product', 'Admin\ProductController');
+Route::post('/admin/Product/upload-image', 'Admin\ProductController@uploadImage');
 
 Route::group(['middleware' => 'check.dirty'], function(){
 	Route::resource('products','ProductController');

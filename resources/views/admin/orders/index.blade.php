@@ -2,6 +2,8 @@
 {{--    use Illuminate\Support\Facades\DB;--}}
 {{--@endphp--}}
 {{--{{DB::enableQueryLog()}}--}}
+@extends('layout.admin.app')
+@section('content')
 <h2>後台-訂單列表</h2>
 <span>訂單總數：{{$orderCount}}</span>
 <table>
@@ -35,4 +37,5 @@
         <a href="/admin/orders?page={{$i}}">第{{$i}}頁</a>
     @endfor
 </div>
+@endsection
 {{--{{dd(DB::getQueryLog())}}--}}

@@ -7,6 +7,9 @@
 
 <h2>後台-產品列表</h2>
 <span>產品總數：{{$productCount}}</span>
+<div>
+    <input type="button" class="import" value="匯入Excel">
+</div>
 @if($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -53,6 +56,9 @@
     $(document).on('click','.upload_image',function(){
         $('#product_id').val($(this).data('id'));
         $('#upload-image').modal();
+    })
+    $(document).on('click','.import',function () {
+        $('#import_excel').modal();
     })
 </script>
 {{--{{dd(DB::getQueryLog())}}--}}

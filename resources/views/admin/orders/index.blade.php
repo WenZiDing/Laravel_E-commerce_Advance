@@ -2,10 +2,13 @@
 {{--    use Illuminate\Support\Facades\DB;--}}
 {{--@endphp--}}
 {{--{{DB::enableQueryLog()}}--}}
-@extends('layout.admin.app')
+@extends('layout.admin_app')
 @section('content')
 <h2>後台-訂單列表</h2>
 <span>訂單總數：{{$orderCount}}</span>
+<div>
+    <a href="/admin/orders/excel/export">匯出訂單(Excel)</a>
+</div>
 <table>
     <thead>
     <tr>

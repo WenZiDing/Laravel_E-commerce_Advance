@@ -16,7 +16,7 @@
 
     @foreach ($products as $product)
     <tr>
-      <td>{{$product->title}}</td>
+        <td class="{{ $product->id == 1 ? 'special-text' : '' }}">{{ $product->title }}</td>
       <td>{{$product->content}}</td>
       <td>{{$product->price}}</td>
       <td>

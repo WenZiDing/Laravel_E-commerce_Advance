@@ -31,8 +31,11 @@ class ExampleTest extends DuskTestCase
     protected function driver()
     {
         $options = (new ChromeOptions)->addArguments([
-            // '--disabled-gpu',
-            // '--headless'
+            '--disable-gpu',
+            '--headless',
+            '--no-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-software-rasterizer',
         ]);
 
         return RemoteWebDriver::create(
@@ -53,9 +56,9 @@ class ExampleTest extends DuskTestCase
             $browser->click('.check_product')
                 ->waitForDialog(5)
                 ->assertDialogOpened('商品數量充足')
-                ->assertDialog();
+                ->acceptDialog();
 //                    ->assertSee('Laravel');
-            eval(\Psy\sh());
+//            eval(\Psy\sh());
         });
     }
     public function testFillForm(){
@@ -65,7 +68,7 @@ class ExampleTest extends DuskTestCase
                 ->select('[name="product"]' , '食物')
                 ->press('送出')
                 ->assertQueryStringHas('product', '食物');
-            eval(\Psy\sh());
+//            eval(\Psy\sh());
         });
     }
 }

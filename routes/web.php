@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::get('/', function () {
-//     return view('index');
+//     return view('welcome');
 // });
 Route::get('/', 'WebController@index');
 Route::get('/contact-us', 'WebController@contactUs');
